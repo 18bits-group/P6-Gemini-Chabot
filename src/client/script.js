@@ -1,63 +1,94 @@
-// Pega o elemento <textarea> pelo id "pergunta"
-const pergunta = document.getElementById("pergunta");
+    // Pega o elemento <textarea> pelo id "pergunta"
+    const pergunta = document.getElementById("question");
 
-// Pega o elemento <span> que mostra o contador de caracteres
-const charCount = document.getElementById("charCount");
+    // Pega o elemento <span> que mostra o contador de caracteres
+    const charCount = document.getElementById("charCount");
 
-// Lê o valor do atributo maxlength do textarea (limite máximo de caracteres)
-const maxLength = pergunta.getAttribute("maxlength");
+    // Lê o valor do atributo maxlength do textarea (limite máximo de caracteres)
+    const maxLength = pergunta.getAttribute("maxlength");
 
-// Adiciona um evento para quando o usuário digitar no textarea
-pergunta.addEventListener("input", () => {
-  // Atualiza o contador com a quantidade de caracteres digitados
-  charCount.textContent = pergunta.value.length;
-});
+    // Adiciona um evento para quando o usuário digitar no textarea
+    pergunta.addEventListener("input", () => {
+      // Atualiza o contador com a quantidade de caracteres digitados
+      charCount.textContent = question.value.length;
+    });
 
-// Função para limpar os campos
-function limpar() {
-  // Apaga o texto do textarea
-  pergunta.value = "";
+    // Função para limpar os campos
+    function cleaner() {
+      // Apaga o texto do textarea
+      pergunta.value = "";
 
-  // Apaga o valor do campo de chave da API
-  apiKey.value = "";
+      // Apaga o valor do campo de chave da API
+      const apiKey = document.getElementById("apiKey");
+      apiKey.value = "";
 
-  // Reseta o contador para zero
-  charCount.textContent = 0;
-}
+      // Reseta o contador para zero
+      charCount.textContent = 0;
+    }
 
-//    MODO ESCURO / CLARO
+    // TEMA DARK/LIGHT MODE
+    class ThemeManager {
+        constructor() {
+            // Elementos do DOM
+            this.themeToggle = document.getElementById('themeToggle');
+            
+            // Estado do tema (dark por padrão)
+            this.isDarkMode = true;
+            
+            // Inicializar
+            this.init();
+        }
 
-// Busca no localStorage o estado do dark mode salvo anteriormente
-let darkmode = localStorage.getItem('darkmode');
+        // Inicializar tema
+        init() {
+            this.loadStoredTheme();
+            this.bindEvents();
+            this.initializeTheme();
+        }
 
-// Pega o botão que alterna o tema
-const themeSwitch = document.getElementById('theme-switch');
+        // Carregar tema armazenado
+        loadStoredTheme() {
+            const storedTheme = localStorage.getItem('aiAssistant_theme');
+            // Carregar tema salvo ou usar dark como padrão
+            this.isDarkMode = storedTheme ? storedTheme === 'dark' : true;
+        }
 
-// Função para ativar o modo escuro
-const enableDarkmode = () => {
-  // Adiciona a classe "darkmode" no <body>
-  document.body.classList.add('darkmode');
-  // Salva no localStorage que o modo escuro está ativo
-  localStorage.setItem('darkmode', 'active');
-};
+        // Inicializar tema baseado no estado carregado
+        initializeTheme() {
+            if (this.isDarkMode) {
+                document.documentElement.removeAttribute('data-theme');
+                this.themeToggle.innerHTML = '☀️';
+            } else {
+                document.documentElement.setAttribute('data-theme', 'light');
+                this.themeToggle.innerHTML = '🌙';
+            }
+        }
 
-// Função para desativar o modo escuro
-const disableDarkmode = () => {
-  // Remove a classe "darkmode" do <body>
-  document.body.classList.remove('darkmode');
-  // Salva no localStorage que o modo escuro está desativado
-  localStorage.setItem('darkmode', null);
-};
+        // Vincular eventos
+        bindEvents() {
+            this.themeToggle.addEventListener('click', () => this.toggleTheme());
+        }
 
-// Se no carregamento da página o localStorage indicar que o modo escuro estava ativo,
-// ativa novamente o modo escuro
-if (darkmode === "active") enableDarkmode();
+        // Alternar entre tema dark e light
+        toggleTheme() {
+            this.isDarkMode = !this.isDarkMode;
+            
+            if (this.isDarkMode) {
+                // Mudar para dark mode
+                document.documentElement.removeAttribute('data-theme');
+                this.themeToggle.innerHTML = '☀️';
+            } else {
+                // Mudar para light mode
+                document.documentElement.setAttribute('data-theme', 'light');
+                this.themeToggle.innerHTML = '🌙';
+            }
+            
+            // Salvar preferência do tema
+            localStorage.setItem('aiAssistant_theme', this.isDarkMode ? 'dark' : 'light');
+        }
+    }
 
-// Adiciona evento de clique no botão de troca de tema
-themeSwitch.addEventListener("click", () => {
-  // Lê o estado atual do dark mode no localStorage
-  darkmode = localStorage.getItem('darkmode');
-
-  // Se não estiver ativo, ativa; senão, desativa
-  darkmode !== "active" ? enableDarkmode() : disableDarkmode();
-});
+    // Inicializar gerenciador de tema quando DOM estiver carregado
+    document.addEventListener('DOMContentLoaded', () => {
+        new ThemeManager();
+    });
