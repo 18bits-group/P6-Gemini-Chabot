@@ -24,9 +24,14 @@
       "prettier --write"
     ]
   },
+  "config": {
+    "port": 3000
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky"
+    "prestart": "npm lint",
+    "start": "node app.js",
+    "prepare": "husky",
+    "lint": "eslint --fix && prettier --write"
   },
   "devDependencies": {
     "@eslint/css": "^0.10.0",
@@ -41,6 +46,7 @@
     "prettier": "3.6.2"
   },
   "dependencies": {
+    "@google/genai": "^1.14.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0"
   }
