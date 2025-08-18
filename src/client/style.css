@@ -1,214 +1,285 @@
-/* Estilos para o corpo da página (body) */
 :root {
-    --cor-fundo: rgba(65, 63, 63, 0.35);
-    --cor-texto: #fff;
-    --cor-fundoIA:#000;
-    --cor-gradiente: linear-gradient(90deg, #0d0e0fff, #26a1b1ff);
-    --cor-botao:#26a1b1b7;
-    --cor-botao-hover:linear-gradient(90deg, #0d0e0fff, #26a1b1ff);
-    --cor-dark: #dde2e6b2;
+        /* Tema Dark tem que ser padrão */
+        --bg-primary: #0f1419;
+        --bg-secondary: #1a1f29;
+        --bg-tertiary: #242938;
+        --text-primary: #e6e6e6;
+        --text-secondary: #a0a9b8;
+        --accent: #00d4ff;
+        --accent-hover: #00bae6;
+        --border: #2d3748;
+        --success: #48bb78;
+        --error: #f56565;
+        --warning: #ed8936;
+    }
 
+    /* Tema Light */
+    [data-theme="light"] {
+        --bg-primary: #f8fafc;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f1f5f9;
+        --text-primary: #1e293b;
+        --text-secondary: #64748b;
+        --accent: #0ea5e9;
+        --accent-hover: #0284c7;
+        --border: #e2e8f0;
+        --success: #22c55e;
+        --error: #ef4444;
+        --warning: #f59e0b;
 
+    }
 
-}
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-.darkmode {
-    --cor-fundo: #000;
-    --cor-texto: #fff;
-    --cor-fundoIA: #000;
-    --cor-gradiente: linear-gradient(90deg, #222, #26a1b1ff);
-}
-body {
-    font-family: 'Segoe UI', Tahoma, sans-serif;
-    background:  var(--cor-fundo);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-size: 20px;
-}
+    body {
+        font-family: 'Segoe UI', Tahoma, sans-serif;
+        background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        font-size: 20px;
+        color: var(--text-primary);
+        transition: all 0.3s ease;
+    }
 
-/* Estilos para o contêiner principal do chat */
-.chat-container {
-    width: 400px;
-    background: var(--cor-fundoIA);
-    border-radius: 12px;
-    box-shadow: 0 6px 12px var(--cor-gradiente);
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    
-}
-/* Estilos para o título do chat */
-.chat {
-   
-    font-size: 24px;
-    
-}
-/* Efeito de hover no contêiner do chat */
-.chat-container:hover {
-    transform: translateY(-2px);
-}
-/* Estilos para o cabeçalho do chat */
-.chat-header {
-    background: var(--cor-gradiente);
-    color: var(--cor-texto);
-    padding: 15px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    letter-spacing: 1px; 
-}
+    .container {
+        max-width: 800px;
+        width: 100%;
+        padding: 20px;
+    }
 
-/* Estilos para a imagem dentro do cabeçalho */
-.chat-header img {
-    min-height: 40px;
-    width: 60%;
-    margin-right: 10px;
-    vertical-align: middle;
-}
-/* Estilos para o label (etiqueta) do formulário */
-.chat-label {
-   color: var(--cor-texto);
-   text
-}
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 20px 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+    }
 
+    .header-content {
+        flex: 1;
+        text-align: center;
+    }
 
-/* Estilos para a linha que contém a caixa de texto e o botão */ 
-.chat-input {
-    display: flex;
-    flex-direction: column;
-    border-top: 1px solid var(--cor-texto);
-    padding: 8px;
-    gap: 6px;
-    background: var(--cor-fundoIA);
+    .header h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, var(--accent), #00bae6, #0099cc);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 10px;
+    }
 
-}
+    .header p {
+        color: var(--text-secondary);
+        font-size: 1.1rem;
+    }
 
-/* Estilos para a linha que contém a caixa de texto e o botão */
-.input-row {
-    display: flex;
-    gap: 6px;
-}
+    .theme-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        font-size: 24px;
+    }
 
-/* Estilos para a caixa de texto da pergunta */
-.input-pergunta{
-    flex: 1;
-    border: 1px solid var(--cor-texto);
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.3s ease;
-    font-family: 'Segoe UI', Tahoma, sans-serif;
+    .theme-toggle:hover {
+        background: var(--border);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    }
 
-}
+    .chat-input {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: all 0.3s ease;
+    }
 
+    .chat-label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        margin-bottom: 8px;
+        display: block;
+    }
 
+    .input-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-end;
+    }
 
-/* Estilos para os campos de entrada de texto e senha */
-.chat-input input[type="text"],
-.chat-input input[type="password"] {
-    flex: 1;
-    border: 1px solid var(--cor-texto);
-    padding: 10px;
-    font-size: 15px;
-    border-radius: 8px;
-    outline: none;
-    transition: border 0.3s ease;
-}
+    .chat-input input[type="password"],
+    .input-question {
+        width: 100%;
+        padding: 12px 16px;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text-primary);
+        font-size: 16px;
+        transition: all 0.3s ease;
+        font-family: inherit;
+    }
 
+    .chat-input input[type="password"]:focus,
+    .input-question:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
+    }
 
-/* Estilos para o botão */
-.btn {
-    background: var(--cor-botao);
-    color: var(--cor-texto);
-    border: none;
-    padding: 10px 15px;
-    cursor: pointer;
-    border-radius: 8px;
-    font-size: 15px;
-    transition: background 0.3s ease;
-}
-/* Efeito de hover no botão */
-.chat-input button:hover {
-    background: var(--cor-botao-hover);
-}
+    .chat-input input[type="password"]::placeholder,
+    .input-question::placeholder {
+        color: var(--text-secondary);
+    }
 
-/* Define a animação 'fadeIn' */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(10px); }
-}
-.contador {
-  font-size: 10px;
-  color: var(--cor-texto);
-  flex-direction: row;
-  display: flex;
-  align-items: center;
-}
+    .input-question {
+        flex: 1;
+        min-height: 80px;
+        resize: vertical;
+    }
+    .btn {
+        background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+        color: white;
+        border: none;
+        padding: 12px 24px;
+        cursor: pointer;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        white-space: nowrap;
+    }
+    .btn-cleaner {
+        background: var(--bg-tertiary);
+        color: var(--text-primary);
+        border: 1px solid var(--border);
+        padding: 8px 16px;
+        cursor: pointer;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
 
+    .btn-cleaner:hover {
+        background: var(--border);
+        transform: translateY(-1px);
+    }
+    .container-extras {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 
+    .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 212, 255, 0.3);
+    }
 
-   #theme-switch {
-  height: 60px;
-  width: 50px;
-  padding: 0;
-  border-radius: 50%;
-  border: none; 
-  background-color: var(--cor-dark);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 20px;
-  right: 20px;
-}
+    .charCounter {
+        font-size: 0.85rem;
+        color: var(--text-secondary);
+        text-align: right;
+        margin-top: 0px;
+    }
+    footer {
+        background: var(--bg-secondary);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-top: 30px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        text-align: center;
+        transition: all 0.3s ease;
+    }
 
-#theme-switch svg {
-  fill: var(--cor-dark);
-  width: 24px;
-  height: 24px;
-}
+    footer p {
+        color: var(--text-secondary);
+        margin: 0;
+        font-size: 0.9rem;
+    }
 
-#theme-switch svg:last-child {
-  display: none;
-}
+    .repo-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 20px;
+        background: var(--bg-tertiary);
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        color: var(--text-primary);
+        text-decoration: none;
+        transition: all 0.3s ease;
+        margin-bottom: 16px;
+    }
 
-.darkmode #theme-switch svg:first-child {
-  display: none;
-}
+    .repo-btn:hover {
+        background: var(--border);
+        text-decoration: none;
+    }
 
-.darkmode #theme-switch svg:last-child {
-  display: block;
-}
+    a:active, a:link, a:visited {
+        color: var(--text-primary);
+        text-decoration: none;
+    }
 
-footer {
-    background: rgba(15, 15, 20, 0.99);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    text-align: center;
-    color: var(--cor-texto);
-    font-size: 16px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-  
-   
-}
-footer p{
-    font-size: 15px;
-     color: var(--cor-texto);
-}
-a:active, a:link,a:visited {
-  color: var(--cor-texto);
-  text-decoration: none; /* Remove o sublinhado */
-}
-a:hover {
-  color: var(--cor-texto-hover);
-  text-decoration: underline; /* Adiciona sublinhado */
-}
+    a:hover {
+        color: var(--accent);
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .container {
+            padding: 16px;
+        }
+        
+        .header {
+            flex-direction: column;
+            text-align: center;
+        }
+        
+        .header-content h1 {
+            font-size: 2rem;
+        }
+        
+        .chat-input {
+            padding: 20px;
+        }
+        
+        .input-row {
+            flex-direction: column;
+        }
+        
+        .btn {
+            width: 100%;
+            justify-content: center;
+        }
+    }

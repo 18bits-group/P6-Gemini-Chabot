@@ -3,76 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="shortcut icon" href="img/robot.png" type="image/x-icon" />
-
-  <title> IA-18 Bits</title>
+  <link rel="icon" href="images/robot.png" type="image/x-icon" />
   <link rel="stylesheet" href="style.css" />
+  <title>Assistente 18 Bits</title>
 </head>
 
+<body>
+   <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <h1>🤖 Assistente de IA - 18 Bits</h1>
+          <p>Faça perguntas ao assistente IA</p>
+        </div>
+        <button id="themeToggle" class="theme-toggle"></button>
+      </header>
 
-<body >
-  <div class="chat-container">
-    <header class="chat-header">
-      <img src="img/ia.png" alt="Logo">
-      <h1 class="chat">Assistente de IA - 18 Bits</h1>
-    </header>
+      <div class="chat-input">
+        <label class="chat-label" for="apiKey">Chave da API Gemini:</label>
+        <input type="password" id="apiKey" placeholder="🔑 Insira a sua chave API aqui..." />
 
-    <div class="chat-input">
-      <label class="chat-label" for="apiKey">Chave da API Gemini:</label>
-      <input type="password" id="apiKey" placeholder="🔑 Insira a chave de sua API aqui..." />
-
-      <div class="input-row">
-        <textarea class="input-pergunta" id="pergunta" placeholder="Digite sua pergunta..."></textarea>
-         <button class="btn" id="btnPerguntar" onClick="perguntar()">Perguntar</button>
-       
-    </div>
-    <div class="contador">
-         Caracteres: <span id="charCount">0</span>/200
+        <div class="input-row">
+          <textarea class="input-question" id="question" placeholder="Digite sua pergunta..." maxlength="200"></textarea>
+          <button class="btn" id="btnquestion" onClick="question()">Perguntar</button>
+        </div>
+       <div class="container-extras">
+        <div id="div-cleaner"><button class="btn" id="btncleaner" onClick="cleaner()">Limpar</button></div>
+        <div class="charCounter">Caracteres: <span id="charCount">0</span>/200</div>
+       </div>
       </div>
-   
-  </div>
 
-  <button class="btn" id="btnLimpar" onClick="limpar()">Limpar</button>
-</div>
-
-   
- </div>
-  <button id="theme-switch">
-  <!-- Ícone tema escuro -->
-  <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 -960 960 960">
-    <path d="M480-120q-150 0-255-105T120-480q0-150 105-255t255-105q14 0 27.5 1t26.5 3q-41 29-65.5 75.5T444-660q0 90 63 153t153 63q55 0 101-24.5t75-65.5q2 13 3 26.5t1 27.5q0 150-105 255T480-120Z" fill="currentColor"/>
-  </svg>
-
-  <!-- Ícone tema claro -->
-  <svg xmlns="http://www.w3.org/2000/svg" height="24" width="24" viewBox="0 -960 960 960">
-    <path d="M480-280q-83 0-141.5-58.5T280-480q0-83 58.5-141.5T480-680q83 0 141.5 58.5T680-480q0 83-58.5 141.5T480-280ZM200-440H40v-80h160v80Zm720 0H760v-80h160v80ZM440-760v-160h80v160h-80Zm0 720v-160h80v160h-80ZM256-650l-101-97 57-59 96 100-52 56Zm492 496-97-101 53-55 101 97-57 59Zm-98-550 97-101 59 57-100 96-56-52ZM154-212l101-97 55 53-97 101-59-57Z" fill="currentColor"/>
-  </svg>
-</button>
-
-
-  <div>
     
-  </div>
 
-   <footer>
-   
-     <section id="team-info">
-        <img src="/src/client/acessts/images/github.svg" width="15px" alt="Logo" class="logo">
-        <a href="https://github.com/18bits-group/P6-Gemini-Chabot/tree/front-assistente-ia" aria-label="github" target="_blank"></a>
-       <a href="https://github.com/allanpneves/P6-Gemini-Chabot" target="_blank" class="repo-btn"> Repositório no GitHub  </a>
-       <p>Programa Desenvolve — Koru | Grupo Boticário</p>
-    
-      </section>
-    
-    </footer>
-
-   
-  
-     
-</body>
-</html>
-
-
-  <script src="script.js" defer></script>
+      <!-- Footer -->
+      <footer>
+        <section id="team-info">
+          <a href="https://github.com/18bits-group/P6-Gemini-Chabot/" target="_blank" class="repo-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+            </svg>
+            GitHub
+          </a>
+          <p>Programa Desenvolve – Koru | Grupo Boticário</p>
+        </section>
+      </footer>
+   </div>
+<script src="script.js"></script>
 </body>
 </html>
