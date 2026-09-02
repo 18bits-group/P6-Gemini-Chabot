@@ -1,52 +1,252 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="images/robot.png" type="image/x-icon" />
-  <link rel="stylesheet" href="style.css" />
-  <title>Assistente 18 Bits</title>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Assistente de Inteligência Artificial 18 Bits utilizando Google Gemini"
+    >
+
+    <title>Assistente de IA - 18 Bits</title>
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
 </head>
 
+
 <body>
-   <div class="container">
-      <header class="header">
+
+    <!-- ==========================================
+         CABEÇALHO
+    =========================================== -->
+
+    <header class="header">
+
         <div class="header-content">
-          <h1>🤖 Assistente de IA - 18 Bits</h1>
-          <p>Faça perguntas ao assistente IA</p>
+
+            <div class="logo">
+
+                <span class="logo-icon">
+                    🤖
+                </span>
+
+                <div class="logo-text">
+
+                    <h1>
+                        Assistente de IA
+                    </h1>
+
+                    <span>
+                        18 Bits
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <!-- BOTÃO TEMA -->
+
+            <button
+                id="themeToggle"
+                class="theme-toggle"
+                type="button"
+                aria-label="Alternar tema"
+            >
+                ☀️
+            </button>
+
         </div>
-        <button id="themeToggle" class="theme-toggle"></button>
-      </header>
 
-      <div class="chat-input">
-        <label class="chat-label" for="apiKey">Chave da API Gemini:</label>
-        <input type="password" id="apiKey" placeholder="🔑 Insira a sua chave API aqui..." />
+    </header>
 
-        <div class="input-row">
-          <textarea class="input-question" id="question" placeholder="Digite sua pergunta..." maxlength="200"></textarea>
-          <button class="btn" id="btnquestion" onClick="question()">Perguntar</button>
-        </div>
-       <div class="container-extras">
-        <div id="div-cleaner"><button class="btn" id="btncleaner" onClick="cleaner()">Limpar</button></div>
-        <div class="charCounter">Caracteres: <span id="charCount">0</span>/200</div>
-       </div>
-      </div>
 
-    
 
-      <!-- Footer -->
-      <footer>
-        <section id="team-info">
-          <a href="https://github.com/18bits-group/P6-Gemini-Chabot/" target="_blank" class="repo-btn">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            GitHub
-          </a>
-          <p>Programa Desenvolve – Koru | Grupo Boticário</p>
+    <!-- ==========================================
+         CONTEÚDO PRINCIPAL
+    =========================================== -->
+
+    <main class="main">
+
+        <section class="chat-container">
+
+
+            <!-- ==================================
+                 TÍTULO
+            =================================== -->
+
+            <div class="chat-header">
+
+                <div class="chat-icon">
+                    ✨
+                </div>
+
+                <div>
+
+                    <h2>
+                        Converse com a Inteligência Artificial
+                    </h2>
+
+                    <p>
+                        Faça uma pergunta e receba uma resposta utilizando o Google Gemini.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 ÁREA DA PERGUNTA
+            =================================== -->
+
+            <div class="chat-form">
+
+                <label
+                    class="chat-label"
+                    for="question"
+                >
+                    Sua pergunta:
+                </label>
+
+
+                <textarea
+                    id="question"
+                    name="question"
+                    rows="6"
+                    maxlength="2000"
+                    placeholder="Digite sua pergunta aqui..."
+                    autocomplete="off"
+                ></textarea>
+
+
+                <!-- CONTADOR -->
+
+                <div class="input-footer">
+
+                    <span class="char-counter">
+
+                        <span id="charCount">
+                            0
+                        </span>
+
+                        / 2000 caracteres
+
+                    </span>
+
+                </div>
+
+
+                <!-- ==================================
+                     BOTÕES
+                =================================== -->
+
+                <div class="button-container">
+
+                    <button
+                        id="btnquestion"
+                        class="btn btn-primary"
+                        type="button"
+                        onclick="question()"
+                    >
+                        🤖 Perguntar
+                    </button>
+
+
+                    <button
+                        id="btncleaner"
+                        class="btn btn-secondary"
+                        type="button"
+                        onclick="cleaner()"
+                    >
+                        🗑️ Limpar
+                    </button>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ==================================
+                 ÁREA DA RESPOSTA
+            =================================== -->
+
+            <div
+                id="response-container"
+                class="response-container"
+            >
+
+                <div class="response-header">
+
+                    <span class="response-icon">
+                        🤖
+                    </span>
+
+                    <h3>
+                        Resposta do Gemini
+                    </h3>
+
+                </div>
+
+
+                <div
+                    id="response"
+                    class="response"
+                >
+                    <p class="response-placeholder">
+                        A resposta da inteligência artificial aparecerá aqui.
+                    </p>
+                </div>
+
+            </div>
+
+
         </section>
-      </footer>
-   </div>
-<script src="script.js"></script>
+
+    </main>
+
+
+
+    <!-- ==========================================
+         RODAPÉ
+    =========================================== -->
+
+    <footer class="footer">
+
+        <p>
+            Desenvolvido pelo grupo
+            <strong>18 Bits</strong>
+        </p>
+
+        <p>
+            Projeto Gemini Chatbot
+        </p>
+
+    </footer>
+
+
+
+    <!-- ==========================================
+         JAVASCRIPT
+    =========================================== -->
+
+    <script
+        src="./script.js"
+    ></script>
+
 </body>
+
 </html>
+
