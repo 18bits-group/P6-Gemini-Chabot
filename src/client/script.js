@@ -1,94 +1,164 @@
-    // Pega o elemento <textarea> pelo id "pergunta"
-    const pergunta = document.getElementById("question");
+const pergunta = document.getElementById("question");
+const charCount = document.getElementById("charCount");
+const apiKey = document.getElementById("apiKey");
+const btnQuestion = document.getElementById("btnquestion");
 
-    // Pega o elemento <span> que mostra o contador de caracteres
-    const charCount = document.getElementById("charCount");
+// URL do backend
+const API_URL = "http://localhost:3000/api/gemini";
 
-    // Lê o valor do atributo maxlength do textarea (limite máximo de caracteres)
-    const maxLength = pergunta.getAttribute("maxlength");
+// ==========================================
+// CONTADOR DE CARACTERES
+// ==========================================
 
-    // Adiciona um evento para quando o usuário digitar no textarea
-    pergunta.addEventListener("input", () => {
-      // Atualiza o contador com a quantidade de caracteres digitados
-      charCount.textContent = question.value.length;
+pergunta.addEventListener("input", () => {
+  charCount.textContent = pergunta.value.length;
+});
+
+// ==========================================
+// FUNÇÃO PRINCIPAL - PERGUNTAR AO GEMINI
+// ==========================================
+
+async function question() {
+  const userQuestion = pergunta.value.trim();
+  const userApiKey = apiKey.value.trim();
+
+  // Verifica se existe pergunta
+  if (!userQuestion) {
+    alert("Digite uma pergunta antes de continuar.");
+    pergunta.focus();
+    return;
+  }
+
+  // Verifica se existe chave
+  if (!userApiKey) {
+    alert("Digite sua chave da API Gemini.");
+    apiKey.focus();
+    return;
+  }
+
+  // Desabilita botão enquanto aguarda
+  btnQuestion.disabled = true;
+  btnQuestion.textContent = "Consultando...";
+
+  try {
+    const response = await fetch(API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        question: userQuestion,
+        apiKey: userApiKey,
+      }),
     });
 
-    // Função para limpar os campos
-    function cleaner() {
-      // Apaga o texto do textarea
-      pergunta.value = "";
+    const data = await response.json();
 
-      // Apaga o valor do campo de chave da API
-      const apiKey = document.getElementById("apiKey");
-      apiKey.value = "";
-
-      // Reseta o contador para zero
-      charCount.textContent = 0;
+    if (!response.ok) {
+      throw new Error(
+        data.error ||
+          "Erro ao chamar a API Gemini. Verifique a chave e tente novamente."
+      );
     }
 
-    // TEMA DARK/LIGHT MODE
-    class ThemeManager {
-        constructor() {
-            // Elementos do DOM
-            this.themeToggle = document.getElementById('themeToggle');
-            
-            // Estado do tema (dark por padrão)
-            this.isDarkMode = true;
-            
-            // Inicializar
-            this.init();
-        }
+    // Mostra a resposta
+    alert(data.response);
 
-        // Inicializar tema
-        init() {
-            this.loadStoredTheme();
-            this.bindEvents();
-            this.initializeTheme();
-        }
+  } catch (error) {
+    console.error("Erro:", error);
 
-        // Carregar tema armazenado
-        loadStoredTheme() {
-            const storedTheme = localStorage.getItem('aiAssistant_theme');
-            // Carregar tema salvo ou usar dark como padrão
-            this.isDarkMode = storedTheme ? storedTheme === 'dark' : true;
-        }
+    alert(
+      error.message ||
+        "Erro ao chamar a API Gemini. Verifique a chave e tente novamente."
+    );
+  } finally {
+    // Reativa botão
+    btnQuestion.disabled = false;
+    btnQuestion.textContent = "Perguntar";
+  }
+}
 
-        // Inicializar tema baseado no estado carregado
-        initializeTheme() {
-            if (this.isDarkMode) {
-                document.documentElement.removeAttribute('data-theme');
-                this.themeToggle.innerHTML = '☀️';
-            } else {
-                document.documentElement.setAttribute('data-theme', 'light');
-                this.themeToggle.innerHTML = '🌙';
-            }
-        }
+// ==========================================
+// FUNÇÃO PARA LIMPAR OS CAMPOS
+// ==========================================
 
-        // Vincular eventos
-        bindEvents() {
-            this.themeToggle.addEventListener('click', () => this.toggleTheme());
-        }
+function cleaner() {
+  pergunta.value = "";
+  apiKey.value = "";
+  charCount.textContent = "0";
+  pergunta.focus();
+}
 
-        // Alternar entre tema dark e light
-        toggleTheme() {
-            this.isDarkMode = !this.isDarkMode;
-            
-            if (this.isDarkMode) {
-                // Mudar para dark mode
-                document.documentElement.removeAttribute('data-theme');
-                this.themeToggle.innerHTML = '☀️';
-            } else {
-                // Mudar para light mode
-                document.documentElement.setAttribute('data-theme', 'light');
-                this.themeToggle.innerHTML = '🌙';
-            }
-            
-            // Salvar preferência do tema
-            localStorage.setItem('aiAssistant_theme', this.isDarkMode ? 'dark' : 'light');
-        }
+// ==========================================
+// TEMA DARK / LIGHT MODE
+// ==========================================
+
+class ThemeManager {
+  constructor() {
+    this.themeToggle = document.getElementById("themeToggle");
+
+    this.isDarkMode = true;
+
+    this.init();
+  }
+
+  init() {
+    this.loadStoredTheme();
+    this.bindEvents();
+    this.initializeTheme();
+  }
+
+  loadStoredTheme() {
+    const storedTheme = localStorage.getItem("aiAssistant_theme");
+
+    this.isDarkMode = storedTheme
+      ? storedTheme === "dark"
+      : true;
+  }
+
+  initializeTheme() {
+    if (this.isDarkMode) {
+      document.documentElement.removeAttribute("data-theme");
+      this.themeToggle.innerHTML = "☀️";
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      this.themeToggle.innerHTML = "🌙";
+    }
+  }
+
+  bindEvents() {
+    this.themeToggle.addEventListener("click", () =>
+      this.toggleTheme()
+    );
+  }
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+
+    if (this.isDarkMode) {
+      document.documentElement.removeAttribute("data-theme");
+      this.themeToggle.innerHTML = "☀️";
+    } else {
+      document.documentElement.setAttribute("data-theme", "light");
+      this.themeToggle.innerHTML = "🌙";
     }
 
-    // Inicializar gerenciador de tema quando DOM estiver carregado
-    document.addEventListener('DOMContentLoaded', () => {
-        new ThemeManager();
-    });
+    localStorage.setItem(
+      "aiAssistant_theme",
+      this.isDarkMode ? "dark" : "light"
+    );
+  }
+}
+
+// ==========================================
+// INICIALIZAÇÃO
+// ==========================================
+
+document.addEventListener("DOMContentLoaded", () => {
+  new ThemeManager();
+});
+
+// Disponibiliza as funções para os eventos do HTML
+window.question = question;
+window.cleaner = cleaner;
+
